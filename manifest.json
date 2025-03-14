@@ -1,0 +1,46 @@
+{
+    "manifest_version": 3,
+    "name": "Meeting Transcriber",
+    "version": "1.0.0",
+    "description": "Transcribes and summarizes Zoom and Google Meet calls using AssemblyAI and Gemini",
+    "permissions": [
+      "storage",
+      "activeTab",
+      "scripting",
+      "tabs"
+    ],
+    "host_permissions": [
+      "https://*.zoom.us/*",
+      "https://meet.google.com/*",
+      "https://api.assemblyai.com/*",
+      "https://generativelanguage.googleapis.com/*"
+    ],
+    "background": {
+      "service_worker": "src/background/index.ts",
+      "type": "module"
+    },
+    "action": {
+      "default_popup": "src/popup/index.html",
+      "default_icon": {
+        "16": "src/assets/icon16.png",
+        "48": "src/assets/icon48.png",
+        "128": "src/assets/icon128.png"
+      }
+    },
+    "content_scripts": [
+      {
+        "matches": [
+          "https://*.zoom.us/j/*",
+          "https://*.zoom.us/wc/*",
+          "https://meet.google.com/*"
+        ],
+        "js": ["src/content/index.ts"]
+      }
+    ],
+    "options_page": "src/options/index.html",
+    "icons": {
+      "16": "src/assets/icon16.png",
+      "48": "src/assets/icon48.png",
+      "128": "src/assets/icon128.png"
+    }
+  }
